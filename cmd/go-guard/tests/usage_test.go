@@ -24,7 +24,7 @@ func TestIntegration(t *testing.T) {
 		{
 			name:   "base",
 			args:   []string{"func", "NewStr"},
-			expect: "// guardNewStr allows to guard NewStr constructor.\nfunc guardNewStr(r io.Reader, o other, a *arg, m map[string]string, x string) {\n\tgcheck.MustNotNil(1, \"r\", r)\n\tgcheck.MustNotNil(2, \"o\", o)\n\tgcheck.MustNotNil(3, \"a\", a)\n\tgcheck.MustNotNil(4, \"m\", m)\n\n}\n",
+			expect: "// guardNewStr allows to guard NewStr constructor.\nfunc guardNewStr(r io.Reader, o other, a *arg, m map[string]string, x string) {\n\tguard.MustNotNil(1, \"r\", r)\n\tguard.MustNotNil(2, \"o\", o)\n\tguard.MustNotNil(3, \"a\", a)\n\tguard.MustNotNil(4, \"m\", m)\n\n}\n",
 		},
 		{
 			name:        "usage",

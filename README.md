@@ -26,8 +26,8 @@ func NewBar(foo Fooer, r io.Reader) Bar {
 $ go-guard func NewBar
 // guardNewBar allows to guard NewBar constructor.
 func guardNewBar(foo Fooer, r io.Reader) {
-	gcheck.MustNotNil(1, "foo", foo)
-	gcheck.MustNotNil(2, "r", r)
+	guard.MustNotNil(1, "foo", foo)
+	guard.MustNotNil(2, "r", r)
 }
 ```
 
@@ -36,6 +36,6 @@ $ go-guard call NewStr
 guardNewBar(foo, r)
 ```
 
-`gcheck` import path is `github.com/romanyx/guard/gcheck`
+`guard` import path is `github.com/romanyx/guard`
 
 You can use go-guard from Vim with [vim-go-guard](http://github.com/romanyx/vim-go-guard) plugin

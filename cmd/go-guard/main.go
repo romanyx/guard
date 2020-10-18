@@ -28,7 +28,7 @@ go-guard call NewRepository
 func {{.Name}}({{range .Params}}{{.Name}} {{.Type}}, {{end}}) {
 	{{- range $i, $p := .Params}}
 	{{ if .Check -}}
-	check.MustNotNil({{add $i 1}},"{{.Name}}",{{.Name}})
+	guard.MustNotNil({{add $i 1}},"{{.Name}}",{{.Name}})
 	{{- end -}}
 	{{- end}}
 }`
@@ -109,7 +109,7 @@ func parse(pkgs []*packages.Package, g *guard) {
 							t := pkg.TypesInfo.TypeOf(p.Type)
 							prm := param{
 								Name: p.Names[0].Name,
-								Type: removePath(pkg.PkgPath, t.String()),
+								Type: typeName(t.String()),
 							}
 							switch t.(type) {
 							case *types.Pointer, *types.Interface,
@@ -150,15 +150,17 @@ func generateName(base string) string {
 	return "guard" + base
 }
 
-func removePath(pkgPath string, t string) string {
-	parts := strings.Split(t, pkgPath+".")
+func typeName(t string) string {
+	parts := strings.Split(t, "/")
 
-	switch len(parts) {
-	case 2:
-		return parts[0] + parts[1]
-	default:
-		return parts[0]
+	if len(parts) > 2 {
+		if strings.HasPrefix(t, "*") {
+			return "*" + parts[len(parts)-1]
+		}
+		return parts[len(parts)-1]
 	}
+
+	return t
 }
 
 func exit(err error) {

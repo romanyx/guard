@@ -1,4 +1,4 @@
-package gcheck
+package guard
 
 import (
 	"fmt"
