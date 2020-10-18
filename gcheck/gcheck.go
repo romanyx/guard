@@ -5,7 +5,7 @@ import (
 	"reflect"
 )
 
-// MustNotNil panics if you interface is nil
+// MustNotNil panics if the interface is nil
 // or its value is nil.
 func MustNotNil(
 	pN int,
